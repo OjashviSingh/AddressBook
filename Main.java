@@ -1,9 +1,9 @@
 import java.util.*;
 
 class Person {
-    String name;
-    String phone;
-    String email;
+    private String name;
+    private String phone;
+    private String email;
 
     public Person(String name, String phone, String email) {
         this.name = name;
@@ -49,29 +49,48 @@ class AddressBook {
     }
 }
 
+class AddressBookSystem {
+    private Map<String, AddressBook> addressBooks;
+
+    public AddressBookSystem() {
+        this.addressBooks = new HashMap<>();
+    }
+
+    public void addAddressBook(String name) {
+        this.addressBooks.put(name, new AddressBook());
+    }
+
+    public Map<String, AddressBook> getAddressBooks() {
+        return this.addressBooks;
+    }
+
+    public void showAddressBooks() {
+        System.out.println("Address Books:");
+        for (String name : this.addressBooks.keySet()) {
+            System.out.println("- " + name);
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        AddressBook addressBook = new AddressBook();
+        AddressBookSystem system = new AddressBookSystem();
 
         while (true) {
-            System.out.println("1. Add Person");
-            System.out.println("2. Show People");
+            System.out.println("1. Add Address Book");
+            System.out.println("2. Show Address Books");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             if (choice == 1) {
-                System.out.print("Enter name: ");
+                System.out.print("Enter Address Book name: ");
                 String name = scanner.nextLine();
-                System.out.print("Enter phone: ");
-                String phone = scanner.nextLine();
-                System.out.print("Enter email: ");
-                String email = scanner.nextLine();
-                addressBook.addPerson(new Person(name, phone, email));
+                system.addAddressBook(name);
             } else if (choice == 2) {
-                addressBook.showPeople();
+                system.showAddressBooks();
             } else if (choice == 3) {
                 break;
             }
